@@ -1,0 +1,46 @@
+{
+  "id": 1,
+  "email": "office@testing.room",
+  "career": {
+    "developers": [
+      {
+        "developer": "Alpha",
+        "employeeId": "1",
+        "description": "Very good!",
+        "personality": 2,
+        "deservesBonus": true,
+        "imageUrl": ""
+      },
+      {
+        "developer": "Beta",
+        "employeeId": "2",
+        "description": "Much better!",
+        "personality": 5,
+        "deservesBonus": false,
+        "imageUrl": ""
+      },
+      {
+        "developer": "Sigma",
+        "employeeId": "3",
+        "description": "The best!",
+        "personality": 9,
+        "deservesBonus": true,
+        "imageUrl": ""
+      }
+    ],
+    "details": {
+      "technologies": [
+        "android",
+        "firebase",
+        "kotlin",
+        "java",
+        "room"
+      ],
+      "employeeLevels": [
+        "Junior",
+        "Intermediate",
+        "Senior"
+      ]
+    }
+  }
+}

@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">CompanyWithRooms</string>
+    <string name="companyRes">company.json</string>
+</resources>
