@@ -15,10 +15,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.InputStream
 
-@Database(entities = [Company::class, Career::class, Details::class, Developer::class], version = 15, exportSchema = false)
+@Database(
+    entities = [Company::class, Career::class, Details::class, Developer::class],
+    version = 15,
+    exportSchema = false
+)
 @TypeConverters(Converters::class)
 abstract class DeveloperRoomDatabase : RoomDatabase() {
-
     abstract fun developerDao(): DeveloperDao
 
     companion object {
@@ -26,21 +29,18 @@ abstract class DeveloperRoomDatabase : RoomDatabase() {
         private var INSTANCE: DeveloperRoomDatabase? = null
 
         fun getDatabase(
-                context: Context,
-                scope: CoroutineScope
+            context: Context,
+            scope: CoroutineScope
         ): DeveloperRoomDatabase {
             // if the INSTANCE is not null, then return it,
             // if it is, then create the database
             return INSTANCE
                 ?: synchronized(this) {
-                val instance = Room.databaseBuilder(
-                        context.applicationContext,
-                        DeveloperRoomDatabase::class.java,
-                        "developer_database"
-                )
-                        // Wipes and rebuilds instead of migrating if no Migration object.
-                        // Migration is not part of this codelab.
-                        .fallbackToDestructiveMigration()
+                    val instance = Room.databaseBuilder(
+                            context.applicationContext,
+                            DeveloperRoomDatabase::class.java,
+                            "developer_database"
+                        ).fallbackToDestructiveMigration()
                         .addCallback(
                             DeveloperDatabaseCallback(
                                 context,
@@ -48,20 +48,15 @@ abstract class DeveloperRoomDatabase : RoomDatabase() {
                             )
                         )
                         .build()
-                INSTANCE = instance
-                // return instance
-                instance
-            }
+                    INSTANCE = instance
+                    instance
+                }
         }
 
         private class DeveloperDatabaseCallback(
-                private val context: Context,
-                private val scope: CoroutineScope
+            private val context: Context,
+            private val scope: CoroutineScope
         ) : RoomDatabase.Callback() {
-            /**
-             * Override the onOpen method to populate the database.
-             * For this sample, we clear the database every time it is created or opened.
-             */
             override fun onOpen(db: SupportSQLiteDatabase) {
                 super.onOpen(db)
                 // If you want to keep the data through app restarts,
@@ -105,15 +100,17 @@ abstract class DeveloperRoomDatabase : RoomDatabase() {
         fun readJSONFromAsset(context: Context): String {
             val json: String
             try {
-                val inputStream: InputStream = context.assets.open(context.getString(
-                    R.string.companyRes
-                ))
+                val inputStream: InputStream = context.assets.open(
+                    context.getString(
+                        R.string.companyRes
+                    )
+                )
                 json = inputStream.bufferedReader().use {
                     it.readText()
                 }
             } catch (ex: Exception) {
                 ex.localizedMessage
-                return  ""
+                return ""
             }
             return json
         }
